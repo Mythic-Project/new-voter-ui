@@ -12,13 +12,13 @@ const mockProposals: ProposalType[] = [
         status: "Voting",
         title: "Fast-listing tokens: add asset weight and allow borrowing",
         description: "With the upcoming v0.20.0 program release, we have an opportunity to change the parameters used for new tokens listed through the fast-listing process.",
-        options: [{weight: 56000}],
+        options: [{weight: 56000, label: "Approve"}],
         denyWeight: 67000
     }
 ]
 export function Proposals() {
     return (
-        <div className="flex flex-col gap-4 w-full max-w-[722px] mt-8">
+        <div className="flex flex-col gap-8 w-full max-w-[722px] mt-8">
             <div className="flex justify-between items-center">
                 <Heading title="Proposals" />
                 <SearchBar />

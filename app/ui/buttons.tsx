@@ -1,4 +1,4 @@
-
+import clsx from "clsx"
 
 export function StandardButton(
     {title}:
@@ -12,12 +12,19 @@ export function StandardButton(
 }
 
 export function ActiveButton(
-    {title}:
-    {title:string}
+    {title, disabled}:
+    {title:string, disabled: boolean}
 ) {
     return (
-        <div className="text-primary-text bg-[#4361EE] text-sm px-2 py-1 rounded-lg cursor-pointer">
+        <button className={clsx(
+            {
+                "bg-[#3E425B]" : disabled,
+                "bg-[#4361EE]" : !disabled,
+            }, "text-primary-text  text-sm px-4 py-[6px] rounded-lg cursor-pointer" 
+            )}
+            disabled={disabled}
+        >
             {title}
-        </div>
+        </button>
     )
 }
