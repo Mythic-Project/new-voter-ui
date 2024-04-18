@@ -14,6 +14,17 @@ const mockProposals: ProposalType[] = [
         description: "With the upcoming v0.20.0 program release, we have an opportunity to change the parameters used for new tokens listed through the fast-listing process.",
         options: [{weight: 56000, label: "Approve"}],
         denyWeight: 67000
+    },
+    {
+        creator: "DaSiWEEj3bWiqf8KVLPQ3ant1RCZgd93dtQfMc9ReovH",
+        pubkey: new PublicKey("DaSiWEEj3bWiqf8KVLPQ3ant1RCZgd93dtQfMc9ReovH"),
+        endTime: 1713433439000,
+        startTime: 1713133439000,
+        status: "Voting",
+        title: "Fast-listing tokens: add asset weight and allow borrowing",
+        description: "With the upcoming v0.20.0 program release, we have an opportunity to change the parameters used for new tokens listed through the fast-listing process.",
+        options: [{weight: 56000, label: "Approve"}],
+        denyWeight: 67000
     }
 ]
 export function Proposals() {
@@ -23,7 +34,7 @@ export function Proposals() {
                 <Heading title="Proposals" />
                 <SearchBar />
             </div>
-            <div className="">
+            <div className="flex flex-col gap-8">
                 {mockProposals.map(proposal => (
                     <Proposal proposal={proposal} key={proposal.pubkey.toBase58()}/>
                 ))}
