@@ -45,8 +45,8 @@ export function useAddTokens(name: string) {
             return sig
         },
         onSuccess: async() => {
-            client.removeQueries({
-                queryKey: ['get-voter-weight', {name, tokenOwner: wallet.publicKey}]
+            client.resetQueries({
+                queryKey: ['get-token-record', {name, tokenOwner: wallet.publicKey}]
             })
             
             await client.invalidateQueries({

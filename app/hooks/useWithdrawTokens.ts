@@ -59,19 +59,19 @@ export function useWithdrawTokens(name: string) {
             return sig
         },
         onSuccess: async() => {
-            client.removeQueries({
-                queryKey: ['get-voter-weight', {name, tokenOwner: wallet.publicKey}]
+            client.resetQueries({
+                queryKey: ['get-token-record', {name, tokenOwner: wallet.publicKey}]
             })
             
             await client.invalidateQueries({
                 queryKey: ['get-token-record', {name, tokenOwner: wallet.publicKey}]
             })
             await client.invalidateQueries({
-                queryKey: [
-                    'get-tokens-holding', {name, publicKey: wallet.publicKey}]
+                queryKey: ['get-voter-weight', {name, tokenOwner: wallet.publicKey}]
             })
             await client.invalidateQueries({
-                queryKey: ['get-voter-weight', {name, tokenOwner: wallet.publicKey}]
+                queryKey: [
+                    'get-tokens-holding', {name, publicKey: wallet.publicKey}]
             })
         }
     })
