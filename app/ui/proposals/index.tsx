@@ -17,7 +17,7 @@ const mockProposals: ProposalType[] = [
     },
     {
         creator: "DaSiWEEj3bWiqf8KVLPQ3ant1RCZgd93dtQfMc9ReovH",
-        pubkey: new PublicKey("DaSiWEEj3bWiqf8KVLPQ3ant1RCZgd93dtQfMc9ReovH"),
+        pubkey: new PublicKey("ADTv1dri1ymmQjndQPMsmWUwcWbfvPS7siyj7V7EFuP5"),
         endTime: 1713433439000,
         startTime: 1713133439000,
         status: "Voting",

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Header from "./ui/header";
 import { Proposals } from "./ui/proposals";
 import { Footer } from "./ui/footer";

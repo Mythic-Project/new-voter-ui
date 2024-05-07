@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Deanslist",
+        "network": "mainnet",
+        "realmId": "F9V4Lwo49aUe8fFujMbU6uhdFyDRqKY54WpzdpncUSk9",
+        "programId": "GovER5Lthms3bLBqWub97yVrMmEogzX7xNjdXpPPCVZw",
+        "tokenMint": "Ds52CDgqdWbTWsua1hgT3AuSSy4FNx2Ezge1br3jQ14a",
+        "tokenType": "community"
+    },
+    {
+        "name": "devnet",
+        "network": "devnet",
+        "realmId": "3JTX4RCmgugNunzrTcGCAVtWbEsAjSfdxVSFiRCCKkwn",
+        "programId": "GovER5Lthms3bLBqWub97yVrMmEogzX7xNjdXpPPCVZw",
+        "tokenMint": "FMH4iiKC94RLVszN2nQCWxhR2md2eSURyNUuPwnTg96M",
+        "tokenType": "community"
+    },
+    {
+        "name": "clean",
+        "network": "devnet",
+        "realmId": "7dGXuEFNi2ah72rtKiuoxCkkGqXRGaneh8iPRBTNirFw",
+        "programId": "GovER5Lthms3bLBqWub97yVrMmEogzX7xNjdXpPPCVZw",
+        "tokenMint": "8oPJm5VZPZM3CKbFuMDyuqL7iqsWMRb8jtKtfRoo3XiC",
+        "tokenType": "community"
+    },
+    {
+        "name": "vlean",
+        "network": "devnet",
+        "realmId": "7EKFSx2nrHy6drQDbzf9JA16yVyK3EZ12kDNmkqZhord",
+        "programId": "GovER5Lthms3bLBqWub97yVrMmEogzX7xNjdXpPPCVZw",
+        "tokenMint": "G28AVEE72VbVC5NYCxfxYStoccD9YMQU4kJFcya1Co7u",
+        "tokenType": "community"
+    }
+]

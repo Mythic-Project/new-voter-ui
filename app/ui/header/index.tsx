@@ -1,12 +1,12 @@
-'use client'
-
 import Image from "next/image";
 import WalletButton from "./wallet-button";
 import VoterPanel from "./VoterPanel";
 import { Heading } from "../headings";
 
 function Header() {
+
     return (
+        
         <div className="w-full flex flex-col gap-8 max-w-[722px]">
             <div className="flex flex-row justify-between w-full items-center">
                 <div>
@@ -19,6 +19,7 @@ function Header() {
             </div>
             <Heading title="Voting Power" />
             <VoterPanel />
+            
         </div>
     )
 }

@@ -1,14 +1,50 @@
-import { ActiveButton, StandardButton } from "../../buttons"
+import { useState } from "react";
+import { customStyles } from "../../style/modal-style";
+import VoterWeight from "./voter-weight"
+import Modal from "react-modal"
+import { ActiveButton, StandardButton } from "../../buttons";
+import { ActionsModal } from "./ActionsModal";
+import { useGetVoterWeight } from "@/app/hooks/useVoterWeight";
+import { useDaoMeta } from "@/app/providers/dao-provider";
+import { RealmMetaType } from "@/app/hooks/useRealm";
 
 function VoterPanel() {
+    const realmMeta = useDaoMeta() as RealmMetaType
+    const voterWeight = useGetVoterWeight(realmMeta.name)
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    // 1 for Add, 2 for Withdraw, 3 for Delegate
+    const [selectedAction, setSelectedAction] = useState<(number)>(1)
+
+    function handleOpenModal(action: number) {
+        setSelectedAction(action)
+        setIsOpen(true)
+    }
+
     return (
-        <div className="w-full bg-primary-background flex justify-between p-4 items-center rounded-lg">
-            <div className="">0 UTK</div>
-            <div className="flex gap-6 mr-8 items-center">
-                <ActiveButton title="Add" />
-                <StandardButton title="Withdraw" />
-                <StandardButton title="Delegate" />
+        <div className="w-full bg-primary-background flex sm:flex-row flex-col 
+            justify-between p-4 items-center rounded-lg gap-3
+        ">
+            <VoterWeight />
+            <div className="flex gap-4 items-center">
+                <ActiveButton title="Add" onClick={() => handleOpenModal(1)}/>
+                <StandardButton title="Withdraw" onClick={() => handleOpenModal(2)}/>
+                <StandardButton title="Delegate" onClick={() => handleOpenModal(3)}/>
             </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setIsOpen(false)}
+                style={customStyles}
+                contentLabel="Voter Weight"
+                ariaHideApp={false}
+            >
+                <ActionsModal 
+                    closeModal={() => setIsOpen(false)} 
+                    action={selectedAction} 
+                    setAction={setSelectedAction}
+                    voterWeight={voterWeight}
+                />
+            </Modal>
         </div>
     )
 }

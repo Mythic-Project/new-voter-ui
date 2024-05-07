@@ -2,7 +2,7 @@
 
 import {ConnectionProvider, WalletProvider} from "@solana/wallet-adapter-react";
 import { FC, ReactNode, useMemo } from "react";
-import { useCluster } from "./cluster-provider";
+import { useDaoMeta } from "./dao-provider";
 import dynamic from "next/dynamic";
 
 const WalletModalProviderDynamic = dynamic(
@@ -12,8 +12,11 @@ const WalletModalProviderDynamic = dynamic(
 );
 
 export const WalletContextProvider: FC<{children: ReactNode}> = ({children}) => {
-    const cluster = useCluster();
-    const endpoint = useMemo(() => cluster, [cluster]);
+    const daoMeta = useDaoMeta()
+
+    const endpoint = daoMeta?.network === "mainnet" ?
+        process.env.NEXT_PUBLIC_MAINNET_RPC as string :
+        process.env.NEXT_PUBLIC_DEVNET_RPC as string
 
     return (
         <ConnectionProvider endpoint={endpoint}>

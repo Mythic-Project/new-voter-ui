@@ -1,28 +1,49 @@
 import clsx from "clsx"
+import { ReactNode } from "react"
 
 export function StandardButton(
-    {title}:
-    {title:string}
+    {title, vibrant, onClick, addStyles, disabled}:
+    {
+        title: ReactNode,
+        vibrant?: boolean
+        onClick?: () => void,
+        disabled?: boolean, 
+        addStyles?: string
+    }
 ) {
     return (
-        <div className="text-secondary-text text-sm cursor-pointer">
+        <button className={clsx(
+            {
+                "text-primary-text": vibrant,
+                "text-secondary-text": !vibrant
+            }, `text-sm cursor-pointer px-4 py-[6px] rounded-lg ${addStyles}`
+        )} 
+            onClick={onClick}
+            disabled={disabled}
+        >
             {title}
-        </div>
+        </button>
     )
 }
 
 export function ActiveButton(
-    {title, disabled}:
-    {title:string, disabled: boolean}
+    {title, disabled, onClick, addStyles}:
+    {
+        title:string, 
+        onClick?: () => void,
+        disabled?: boolean, 
+        addStyles?: string
+    }
 ) {
     return (
         <button className={clsx(
             {
                 "bg-[#3E425B]" : disabled,
-                "bg-[#4361EE]" : !disabled,
-            }, "text-primary-text  text-sm px-4 py-[6px] rounded-lg cursor-pointer" 
+                "bg-alternate-blue" : !disabled,
+            }, ` ${addStyles} text-primary-text text-sm px-4 py-[6px] rounded-lg cursor-pointer`
             )}
             disabled={disabled}
+            onClick={onClick}
         >
             {title}
         </button>

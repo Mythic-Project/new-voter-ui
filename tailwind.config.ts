@@ -21,6 +21,8 @@ const config: Config = {
         "secondary-background": "#2A2D3D",
         "options-background": "#303343",
         "placeholder-shade": "#7D8096",
+        "alternate-blue": "#4361EE",
+        "action-background": "#3E425B"
       }
     },
   },

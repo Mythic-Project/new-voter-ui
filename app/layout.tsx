@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./ui/style/globals.css";
-import { ClusterProvider } from "./contexts/cluster-provider";
-import { WalletContextProvider } from "./contexts/wallet-provider";
+import { ClusterProvider } from "./providers/dao-provider";
+import { WalletContextProvider } from "./providers/wallet-provider";
+import { TanstackProvider } from "./providers/tanstack-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ClusterProvider>
-          <WalletContextProvider>
-            {children}
-          </WalletContextProvider>
-        </ClusterProvider>
+        <TanstackProvider>
+          <ClusterProvider>
+            <WalletContextProvider>
+              {children}
+            </WalletContextProvider>
+          </ClusterProvider>
+        </TanstackProvider>
       </body>
     </html>
   );
