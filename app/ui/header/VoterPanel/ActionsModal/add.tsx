@@ -10,7 +10,8 @@ import BN from "bn.js";
 import { useAddTokens } from "@/app/hooks/useAddTokens";
 import Link from "next/link";
 import { UseQueryResult } from "@tanstack/react-query";
-import { Spinner } from "@/app/ui/spinner";
+import { Spinner } from "@/app/ui/animations";
+import { getLink } from "@/app/utils/ui-utils";
 
 export function Add(
     {closeModal, tokensHolding}:
@@ -77,11 +78,12 @@ export function Add(
                 Add tokens to vote on proposals
             </h2>
 
-            <hr className="border-[1px] border-secondary-background w-full mb-6" />
+            <hr className="border-[1px] w-full mb-6" style={{borderColor: realmMeta.secondaryBackground}} />
 
-            <input type="number" placeholder={"0"} className="bg-secondary-background
+            <input type="number" placeholder={"0"} className="
                 placeholder:text-placeholder-shade w-full p-3 rounded-lg z-20 
                 border-[1px] border-[#434557] mb-2"
+                style={{backgroundColor: realmMeta.secondaryBackground}}
                 disabled={tokensHolding.data? false : true}
                 onChange={(e) => setAmount(e.target.value)}
                 value={tokensHolding.data ? amount : ""}
@@ -94,10 +96,16 @@ export function Add(
                             <div>Loading..</div> :
                         tokensHolding.data ? 
                             <Balance holding={tokensHolding.data} /> : 
-                            ""
+                            "NIL"
                     }
                     </h4>
-                <div className="text-alternate-blue cursor-pointer" onClick={setMax}>MAX</div>
+                <div 
+                    className="cursor-pointer" 
+                    onClick={setMax}
+                    style={{color: realmMeta.mainColor}}
+                >
+                    MAX
+                </div>
             </div>
 
             {
@@ -110,13 +118,13 @@ export function Add(
                     title={
                         addTokensPending ? 
                             <span className="flex gap-2 items-center">
-                                <Spinner />
+                                <Spinner mainColor={realmMeta.mainColor}/>
                                 Adding..
                             </span> :
                             "Add Tokens"
                         }                    
-                    addStyles={tokensHolding.data && !addTokensPending ? "bg-alternate-blue" : "bg-action-background"}
-                    vibrant={true} 
+                    style={{backgroundColor: tokensHolding.data && !addTokensPending ? realmMeta.mainColor : realmMeta.actionBackground }}
+                    vibrant={true}
                     disabled={
                         !tokensHolding.data || addTokensPending ? true : false
                     }
@@ -136,7 +144,7 @@ export function Add(
                         <p className="flex gap-2 text-primary-text">
                             Tokens added successfully.
                             <Link 
-                                href={`https://solscan.io/tx/${addTokensData}/${realmMeta.network === "devnet" ? "?cluster=devnet" : ""}`} 
+                                href={getLink(addTokensData, 'tx', realmMeta.network)} 
                                 className="text-secondary-text"
                             >
                                 View transaction

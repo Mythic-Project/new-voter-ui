@@ -6,11 +6,12 @@ import { useGetTokenOwnerRecord } from "@/app/hooks/useVoterRecord";
 import { VoterWeightType } from "@/app/hooks/useVoterWeight";
 import { useDaoMeta } from "@/app/providers/dao-provider";
 import { StandardButton } from "@/app/ui/buttons";
-import { Spinner } from "@/app/ui/spinner";
+import { Spinner } from "@/app/ui/animations";
 import { PublicKey } from "@solana/web3.js";
 import { UseQueryResult } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
+import { getLink } from "@/app/utils/ui-utils";
 
 export function Delegate(
     {closeModal, voterWeight}:
@@ -85,14 +86,15 @@ export function Delegate(
                     </div>
             }
             
-            <hr className="border-[1px] border-secondary-background w-full mb-4" />
+            <hr className="border-[1px] w-full mb-4" style={{borderColor: realmMeta.secondaryBackground}}/>
             <h4 className="text-primary-text text-sm mb-2">Address</h4>
             <input 
                 type="text" 
                 placeholder={"kruHL...gvZC"} 
-                className="bg-secondary-background placeholder:text-placeholder-shade 
+                className=" placeholder:text-placeholder-shade 
                     w-full p-3 rounded-lg z-20 border-[1px] border-[#434557] mb-4"
                 value={address}
+                style={{backgroundColor: realmMeta.secondaryBackground}}
                 disabled={!voterWeight.data}
                 onChange={(e) => setAddress(e.target.value)}
             />
@@ -102,12 +104,12 @@ export function Delegate(
                     title={
                         delegateTokensPending ?
                             <span className="flex gap-2 items-center">
-                                <Spinner />
+                                <Spinner mainColor={realmMeta.mainColor} />
                                 Delegating..
                             </span> :
                             "Delegate Tokens" 
                     }
-                    addStyles={delegateTokensPending ? "bg-action-background" : "bg-alternate-blue"}
+                    style={{backgroundColor: delegateTokensPending ? realmMeta.actionBackground : realmMeta.mainColor}}
                     vibrant={true}
                     onClick={() => handleSubmit(true)}
                 />
@@ -128,7 +130,7 @@ export function Delegate(
                     <p className="text-primary-text flex flex-col">
                         Transaction Successful.
                         <Link 
-                            href={`https://solscan.io/tx/${delegateTokensData}/${realmMeta.network === "devnet" ? "?cluster=devnet" : ""}`} 
+                            href={getLink(delegateTokensData, 'tx', realmMeta.network)} 
                             className="text-secondary-text"
                         >
                             View transaction

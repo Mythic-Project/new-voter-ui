@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Balance, calculateBalance, calculateWithdrawableBalance } from "./balance";
 import BN from "bn.js";
 import { ConfirmWithdraw } from "./withdraw-confirm";
-import { useGetVoteRecords } from "@/app/hooks/useVote";
+import { useGetVoteRecords } from "@/app/hooks/useVoteRecord";
 
 export function Withdraw(
     {closeModal, voterWeight}:
@@ -78,12 +78,13 @@ export function Withdraw(
                     <span className="text-primary-text">WARNING: </span>
                     If you remove your tokens your votes on active proposals will be removed
                 </p>
-                <hr className="border-[1px] border-secondary-background w-full mb-6" />
+                <hr className="border-[1px]w-full mb-6" style={{borderColor: realmMeta.secondaryBackground}} />
                 
-                <input type="number" placeholder={"0"} className="bg-secondary-background
+                <input type="number" placeholder={"0"} className="
                     placeholder:text-placeholder-shade w-full p-3 rounded-lg z-20 
                     border-[1px] border-[#434557] mb-2"
                     disabled={voterWeight.data? false : true}
+                    style={{backgroundColor: realmMeta.secondaryBackground}}
                     onChange={(e) => setAmount(e.target.value)}
                     value={voterWeight.data ? amount : ""}
                 />
@@ -101,12 +102,12 @@ export function Withdraw(
                                 "Loading.."
                         }
                     </h4>
-                    <div className="text-alternate-blue cursor-pointer" onClick={setMax}>MAX</div>
+                    <div className="cursor-pointer" style={{color: realmMeta.mainColor}} onClick={setMax}>MAX</div>
                 </div>
                 <div className="flex gap-4 items-center w-full">
                     <StandardButton 
                         title="Withdraw Tokens" 
-                        addStyles={withdrawableAmount.isZero() ? "bg-action-background" : "bg-alternate-blue"}
+                        style={{backgroundColor: withdrawableAmount.isZero() ? realmMeta.actionBackground : realmMeta.mainColor}}
                         vibrant={true}
                         disabled={!voterWeight.data}
                         onClick={handleSubmit}

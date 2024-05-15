@@ -1,7 +1,7 @@
 'use client'
 
 import {ConnectionProvider, WalletProvider} from "@solana/wallet-adapter-react";
-import { FC, ReactNode, useMemo } from "react";
+import { FC, ReactNode } from "react";
 import { useDaoMeta } from "./dao-provider";
 import dynamic from "next/dynamic";
 

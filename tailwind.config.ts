@@ -17,12 +17,8 @@ const config: Config = {
         "primary-text": "#F0F1F5",
         "secondary-text": "#BEC0C9",
         "tertiary-text": "#D7D9E3",
-        "primary-background": "#212330",
-        "secondary-background": "#2A2D3D",
-        "options-background": "#303343",
         "placeholder-shade": "#7D8096",
-        "alternate-blue": "#4361EE",
-        "action-background": "#3E425B"
+        "dark-shade": "#42444f"
       }
     },
   },

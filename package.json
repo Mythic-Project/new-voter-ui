@@ -26,7 +26,7 @@
     "react-dom": "^18",
     "react-icons": "^5.1.0",
     "react-modal": "^3.16.1",
-    "test-governance-sdk": "^1.0.6"
+    "test-governance-sdk": "^1.0.11"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.5",

@@ -2,13 +2,14 @@ import clsx from "clsx"
 import { ReactNode } from "react"
 
 export function StandardButton(
-    {title, vibrant, onClick, addStyles, disabled}:
+    {title, vibrant, onClick, addStyles, disabled, style}:
     {
         title: ReactNode,
-        vibrant?: boolean
+        style?: any
+        vibrant?: boolean,
         onClick?: () => void,
         disabled?: boolean, 
-        addStyles?: string
+        addStyles?: string,
     }
 ) {
     return (
@@ -20,6 +21,7 @@ export function StandardButton(
         )} 
             onClick={onClick}
             disabled={disabled}
+            style={style}
         >
             {title}
         </button>
@@ -27,21 +29,20 @@ export function StandardButton(
 }
 
 export function ActiveButton(
-    {title, disabled, onClick, addStyles}:
+    {title, disabled, onClick, addStyles, mainColor, actionBackground}:
     {
         title:string, 
         onClick?: () => void,
         disabled?: boolean, 
-        addStyles?: string
+        addStyles?: string,
+        mainColor?: string,
+        actionBackground?: string
     }
 ) {
     return (
-        <button className={clsx(
-            {
-                "bg-[#3E425B]" : disabled,
-                "bg-alternate-blue" : !disabled,
-            }, ` ${addStyles} text-primary-text text-sm px-4 py-[6px] rounded-lg cursor-pointer`
-            )}
+        <button 
+            className={`${addStyles} text-primary-text text-sm px-4 py-[6px] rounded-lg cursor-pointer`}
+            style={{backgroundColor: !disabled && mainColor ? mainColor : actionBackground}}
             disabled={disabled}
             onClick={onClick}
         >

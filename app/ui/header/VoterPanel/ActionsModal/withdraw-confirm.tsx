@@ -9,9 +9,10 @@ import BN from "bn.js";
 import { useWithdrawTokens } from "@/app/hooks/useWithdrawTokens";
 import Link from "next/link";
 import { useGetTokenOwnerRecord } from "@/app/hooks/useVoterRecord";
-import { VoteRecordWithGov } from "@/app/hooks/useVote";
+import { VoteRecordWithGov } from "@/app/hooks/useVoteRecord";
 import { VoterWeightType } from "@/app/hooks/useVoterWeight";
-import { Spinner } from "@/app/ui/spinner";
+import { Spinner } from "@/app/ui/animations";
+import { getLink } from "@/app/utils/ui-utils";
 
 export function ConfirmWithdraw(
     {
@@ -57,7 +58,6 @@ export function ConfirmWithdraw(
         }
 
         await withdrawTokensFn({amount, tokenOwnerRecord, voteRecords, voterWeight})
-        setWithdrawPage(1)
         setAmount("0")
     }
 
@@ -74,19 +74,19 @@ export function ConfirmWithdraw(
                 If you remove your tokens your votes on active proposals will be removed
             </p>
 
-            <hr className="border-[1px] border-secondary-background w-full" />
+            <hr className="border-[1px] w-full" style={{borderColor: realmMeta.secondaryBackground}}/>
 
             <div className="flex gap-4 w-full justify-center">
                 <StandardButton 
                     title={
                         withdrawTokensPending ?
                             <span className="flex gap-2 items-center">
-                                <Spinner />
+                                <Spinner mainColor={realmMeta.mainColor} />
                                 Withdrawing..
                             </span> :
                             "Withdraw Tokens" 
                     }
-                    addStyles={withdrawTokensPending ? "bg-action-background" : "bg-alternate-blue"}
+                    style={{backgroundColor: withdrawTokensPending ? realmMeta.actionBackground : realmMeta.mainColor}}
                     disabled={withdrawTokensPending}
                     vibrant={true}
                     onClick={handleSubmit}
@@ -109,7 +109,7 @@ export function ConfirmWithdraw(
                     <p className="text-primary-text flex flex-col ">
                         Tokens withdrawn successfully
                         <Link 
-                            href={`https://solscan.io/tx/${withdrawTokensData}/${realmMeta.network === "devnet" ? "?cluster=devnet" : ""}`} 
+                            href={getLink(withdrawTokensData, 'tx', realmMeta.network)} 
                             className="text-secondary-text"
                         >
                             View transaction

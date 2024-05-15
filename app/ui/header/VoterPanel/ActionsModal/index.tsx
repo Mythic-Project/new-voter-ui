@@ -33,13 +33,13 @@ export function ActionsModal(
         <div className="flex flex-col gap-2 items-center p-4">
             <div className="flex gap-8 items-center mb-4">
                 <StandardButton title="Add" onClick={() => setAction(1)} 
-                    addStyles={action === 1 ? "bg-action-background" : undefined}
+                    style={action === 1 ? {backgroundColor: realmMeta.actionBackground } : undefined}
                 />
                 <StandardButton title="Withdraw" onClick={() => setAction(2)} 
-                    addStyles={action === 2 ? "bg-action-background" : undefined}
+                    style={action === 2 ? {backgroundColor: realmMeta.actionBackground } : undefined}
                 />
                 <StandardButton title="Delegate" onClick={() => setAction(3)} 
-                    addStyles={action === 3 ? "bg-action-background" : undefined}
+                    style={action === 3 ? {backgroundColor: realmMeta.actionBackground } : undefined}
                 />
             </div>
            {

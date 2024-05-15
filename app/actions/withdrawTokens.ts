@@ -2,11 +2,11 @@ import { Program } from "@coral-xyz/anchor";
 import { WalletContextState } from "@solana/wallet-adapter-react";
 import { Connection, PublicKey, TransactionInstruction } from "@solana/web3.js";
 import BN from "bn.js";
-import { Rpc, TokenOwnerRecord } from "test-governance-sdk";
+import { Governance, TokenOwnerRecord } from "test-governance-sdk";
 import { VoterStakeRegistry } from "../plugin/VoterStakeRegistry/idl";
 import { registrarKey, voterRecordKey, vsrRecordKey } from "../plugin/VoterStakeRegistry/utils";
 import * as anchor from "@coral-xyz/anchor";
-import { VoteRecordWithGov } from "../hooks/useVote";
+import { VoteRecordWithGov } from "../hooks/useVoteRecord";
 import { VoterWeightType } from "../hooks/useVoterWeight";
 import * as token from "@solana/spl-token";
 import sendTransaction from "../utils/send-transaction";
@@ -14,7 +14,7 @@ import sendTransaction from "../utils/send-transaction";
 export async function withdrawTokensHandler(
     connection: Connection,
     wallet: WalletContextState,
-    govClient: Rpc,
+    govClient: Governance,
     realmAccount: PublicKey,
     tokenMint: PublicKey,
     userAccount: PublicKey,

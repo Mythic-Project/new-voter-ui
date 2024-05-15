@@ -1,5 +1,6 @@
 
-export const customStyles = {
+export const customStyles = (primaryBackground: string) => {
+  return {
     content: {
       top: '50%',
       left: '50%',
@@ -7,11 +8,12 @@ export const customStyles = {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      backgroundColor: '#212330',
+      backgroundColor: primaryBackground,
       border: 0,
       borderRadius: '16px'
     },
     overlay: {
         backgroundColor: 'rgb(0,0,0,60%)'
     }
-  };
+  }
+};

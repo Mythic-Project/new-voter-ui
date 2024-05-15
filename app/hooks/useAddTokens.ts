@@ -1,7 +1,7 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useGetRealmMeta } from "./useRealm";
 import addTokensHandler from "../actions/addTokens";
-import { Rpc } from "test-governance-sdk";
+import { Governance } from "test-governance-sdk";
 import { PublicKey } from "@solana/web3.js";
 import BN from "bn.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -26,7 +26,7 @@ export function useAddTokens(name: string) {
                 return null
             }
         
-            const govClient = new Rpc(connection, new PublicKey(selectedRealm.programId))
+            const govClient = new Governance(connection, new PublicKey(selectedRealm.programId))
             const vsrClient = registrar === null ? undefined : VsrClient(connection, registrar.programId)
             const publicKey = wallet.publicKey
         

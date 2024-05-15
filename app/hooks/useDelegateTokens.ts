@@ -1,6 +1,6 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useGetRealmMeta } from "./useRealm";
-import { Rpc, TokenOwnerRecord } from "test-governance-sdk";
+import { Governance, TokenOwnerRecord } from "test-governance-sdk";
 import { PublicKey } from "@solana/web3.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -29,7 +29,7 @@ export function useDelegateTokens(name: string) {
                 throw new Error("Withdrawal failed! Try again.")
             }
 
-            const govClient = new Rpc(connection, new PublicKey(selectedRealm.programId))
+            const govClient = new Governance(connection, new PublicKey(selectedRealm.programId))
 
             const sig = await delegateTokensHanlder(
                 connection,

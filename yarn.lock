@@ -3410,10 +3410,10 @@ tapable@^2.2.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-test-governance-sdk@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/test-governance-sdk/-/test-governance-sdk-1.0.6.tgz#9613f54d1cd10763fda2ac7f7268f5b04f0d1f48"
-  integrity sha512-dkxTytRiziTGJ+eHvsckdI6S5XpRYvqO2mNsxNcoVGhZ8hJ5dWyNw+IZwBOJKDouHOLFh6QwpOeNfbkEh2ZrnQ==
+test-governance-sdk@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/test-governance-sdk/-/test-governance-sdk-1.0.11.tgz#a5134ce9e85e458a00d086d11db194c9363f74d2"
+  integrity sha512-ybgdUMuA10TkZ/OI07ikQBIUmGNjhv3FhdAgg/3a7aQxZh5c42dGScnAzIdfm38UWUR32oqZ8CX540tUEJX5rg==
   dependencies:
     "@coral-xyz/anchor" "^0.29.0"
     "@solana/web3.js" "^1.89.1"

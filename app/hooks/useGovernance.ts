@@ -2,7 +2,7 @@ import { useConnection } from "@solana/wallet-adapter-react"
 import { useGetRealmMeta } from "./useRealm"
 import { useQuery } from "@tanstack/react-query"
 import { PublicKey } from "@solana/web3.js"
-import { Rpc } from "test-governance-sdk"
+import { Governance } from "test-governance-sdk"
 
 export function useGetGovernanceAccounts(name: string) {
     const {connection} = useConnection()
@@ -20,7 +20,7 @@ export function useGetGovernanceAccounts(name: string) {
             const daoProgramId = new PublicKey(programId)
             const realm = new PublicKey(realmId)
 
-            const govRpc = new Rpc(connection, daoProgramId)
+            const govRpc = new Governance(connection, daoProgramId)
             
             try {
                 const governances = await govRpc.getGovernanceAccountsByRealm(realm)

@@ -1,44 +1,87 @@
-import { PublicKey } from "@solana/web3.js";
-import { Heading } from "../headings";
-import { Proposal, ProposalType } from "./Proposal";
-import { SearchBar } from "./search-bar";
+'use client'
 
-const mockProposals: ProposalType[] = [
-    {
-        creator: "DaSiWEEj3bWiqf8KVLPQ3ant1RCZgd93dtQfMc9ReovH",
-        pubkey: new PublicKey("DaSiWEEj3bWiqf8KVLPQ3ant1RCZgd93dtQfMc9ReovH"),
-        endTime: 1713433439000,
-        startTime: 1713133439000,
-        status: "Voting",
-        title: "Fast-listing tokens: add asset weight and allow borrowing",
-        description: "With the upcoming v0.20.0 program release, we have an opportunity to change the parameters used for new tokens listed through the fast-listing process.",
-        options: [{weight: 56000, label: "Approve"}],
-        denyWeight: 67000
-    },
-    {
-        creator: "DaSiWEEj3bWiqf8KVLPQ3ant1RCZgd93dtQfMc9ReovH",
-        pubkey: new PublicKey("ADTv1dri1ymmQjndQPMsmWUwcWbfvPS7siyj7V7EFuP5"),
-        endTime: 1713433439000,
-        startTime: 1713133439000,
-        status: "Voting",
-        title: "Fast-listing tokens: add asset weight and allow borrowing",
-        description: "With the upcoming v0.20.0 program release, we have an opportunity to change the parameters used for new tokens listed through the fast-listing process.",
-        options: [{weight: 56000, label: "Approve"}],
-        denyWeight: 67000
-    }
-]
+import { Heading } from "../headings";
+import { SearchBar } from "./search-bar";
+import { useGetProposals } from "@/app/hooks/useProposal";
+import { useDaoMeta } from "@/app/providers/dao-provider";
+import { PulseModal } from "../animations";
+import { useGetGovernanceAccounts } from "@/app/hooks/useGovernance";
+import { useEffect, useState } from "react";
+import { ProposalV2 } from "test-governance-sdk";
+import { Proposal } from "./Proposal";
+
 export function Proposals() {
+    const [activeProposals, setActiveProposals] = useState<ProposalV2[]>([])
+    const [showLoadButton, setShowLoadButton] = useState(true)
+
+    const daoMeta = useDaoMeta()
+    const governances = useGetGovernanceAccounts(daoMeta!.name)
+    const proposals = useGetProposals(daoMeta!.name)
+    
+    useEffect(() => {
+        const activeProps = proposals.data ?
+            proposals.data.filter(proposal => proposal.state.voting) :
+            []
+
+        setActiveProposals(activeProps)
+    }, [proposals.data])
+
+    function loadProposals() {
+        if (!proposals.data) return
+
+        const remainingProposals = proposals.data.filter(proposal => !activeProposals.some(
+            prop => prop.publicKey.equals(proposal.publicKey)
+        ))
+        
+        const newActiveProps = [...activeProposals,...remainingProposals.slice(0,2)]
+        setActiveProposals(newActiveProps)
+        
+        if (remainingProposals.length < 2) {
+            setShowLoadButton(false)
+        }
+    }
+
     return (
         <div className="flex flex-col gap-8 w-full max-w-[722px] mt-8">
             <div className="flex justify-between items-center">
                 <Heading title="Proposals" />
                 <SearchBar />
             </div>
-            <div className="flex flex-col gap-8">
-                {mockProposals.map(proposal => (
-                    <Proposal proposal={proposal} key={proposal.pubkey.toBase58()}/>
-                ))}
-            </div>
+            {
+                proposals.data === undefined || proposals.isFetching ?
+                    <PulseModal primaryBackground={daoMeta!.primaryBackground}/> :
+                proposals.data ?
+                    <div className="flex flex-col gap-8">
+                        {
+                         activeProposals.length ? 
+                            activeProposals.map(proposal => (
+                                <Proposal
+                                    proposal={proposal.publicKey} 
+                                    key={proposal.publicKey.toBase58()}
+                                    governance={
+                                        governances.data!.find(
+                                            gov => gov.publicKey.equals(proposal.governance)
+                                    )!}
+                                    network={daoMeta!.network}
+                                />
+                            )) :
+                            "No Active Proposals"
+                        }
+                        {
+                            showLoadButton && 
+                            <div className="w-full flex flex-col items-center">
+                                <p className="w-60 text-center 
+                                    py-4 cursor-pointer text-secondary-text"
+                                    style={{backgroundColor: daoMeta!.secondaryBackground}}
+                                    onClick={loadProposals}
+                                >
+                                    Load more Proposals
+                                </p>
+                            </div>
+                        }
+                    </div> :
+                "Failed to fetch the proposals."
+            }
         </div>
     )
 }

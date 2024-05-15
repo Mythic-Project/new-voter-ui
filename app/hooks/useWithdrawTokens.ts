@@ -1,13 +1,13 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useGetRealmMeta } from "./useRealm";
-import { Rpc, TokenOwnerRecord } from "test-governance-sdk";
+import { Governance, TokenOwnerRecord } from "test-governance-sdk";
 import { PublicKey } from "@solana/web3.js";
 import BN from "bn.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { VsrClient } from "../plugin/VoterStakeRegistry/client";
 import { useGetRegistrar } from "./useVsr";
 import { withdrawTokensHandler } from "../actions/withdrawTokens";
-import { VoteRecordWithGov } from "./useVote";
+import { VoteRecordWithGov } from "./useVoteRecord";
 import { VoterWeightType } from "./useVoterWeight";
 
 export function useWithdrawTokens(name: string) {
@@ -38,7 +38,7 @@ export function useWithdrawTokens(name: string) {
                 throw new Error("Withdrawal failed! Try again.")
             }
 
-            const govClient = new Rpc(connection, new PublicKey(selectedRealm.programId))
+            const govClient = new Governance(connection, new PublicKey(selectedRealm.programId))
             const vsrClient = registrar === null ? undefined : VsrClient(connection, registrar.programId)
             const publicKey = wallet.publicKey
 

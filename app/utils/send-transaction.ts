@@ -1,12 +1,13 @@
 import {utils} from "@coral-xyz/anchor";
 import { WalletContextState } from "@solana/wallet-adapter-react";
-import { ComputeBudgetProgram, Connection, TransactionInstruction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
+import { ComputeBudgetProgram, Connection, Keypair, TransactionInstruction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
 
 async function sendTransaction(
     connection: Connection,
     instructions: TransactionInstruction[],
     wallet: WalletContextState,
     chunks?: number,
+    signers?: Keypair
 ) {
     if (!wallet.publicKey) {
         throw new Error("The wallet is not connected.")
@@ -84,6 +85,11 @@ async function sendTransaction(
 
     const signedTxs = await wallet.signAllTransactions!(txs)
 
+    if (signers) {
+        // Additional signer for post chat message ix, need to improve the signing logic
+        signedTxs[signedTxs.length-1].sign([signers])
+    }
+
     let finalTxSig = ""
     for (const signedTx of signedTxs) {
         let txSignature = null
@@ -121,7 +127,7 @@ async function sendTransaction(
                     new Promise((resolve) =>
                         setTimeout(() => {
                             resolve(null);
-                        }, 2000)
+                        }, 5000)
                     )
                 ])
     
@@ -129,7 +135,7 @@ async function sendTransaction(
                     break
                 }
         
-                console.log(`${new Date().toISOString()} Tx not confirmed after ${2000 * txSendAttempts++}ms, resending`);
+                console.log(`${new Date().toISOString()} Tx not confirmed after ${5000 * txSendAttempts++}ms, resending`);
         
                 await connection.sendRawTransaction(signedTx.serialize(), {
                     skipPreflight: true,

@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from "react";
 import { customStyles } from "../../style/modal-style";
 import VoterWeight from "./voter-weight"
@@ -22,19 +24,25 @@ function VoterPanel() {
     }
 
     return (
-        <div className="w-full bg-primary-background flex sm:flex-row flex-col 
-            justify-between p-4 items-center rounded-lg gap-3
-        ">
+        <div className="w-full flex sm:flex-row flex-col 
+            justify-between p-4 items-center rounded-lg gap-3"
+            style={{backgroundColor: realmMeta.primaryBackground}}
+        >
             <VoterWeight />
             <div className="flex gap-4 items-center">
-                <ActiveButton title="Add" onClick={() => handleOpenModal(1)}/>
+                <ActiveButton 
+                    title="Add" 
+                    onClick={() => handleOpenModal(1)} 
+                    mainColor={realmMeta.mainColor}
+                    actionBackground={realmMeta.actionBackground}
+                />
                 <StandardButton title="Withdraw" onClick={() => handleOpenModal(2)}/>
                 <StandardButton title="Delegate" onClick={() => handleOpenModal(3)}/>
             </div>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setIsOpen(false)}
-                style={customStyles}
+                style={customStyles(realmMeta.primaryBackground)}
                 contentLabel="Voter Weight"
                 ariaHideApp={false}
             >

@@ -1,4 +1,4 @@
-import { Rpc } from "test-governance-sdk";
+import { Governance } from "test-governance-sdk";
 import { Connection, PublicKey, SYSVAR_INSTRUCTIONS_PUBKEY, TransactionInstruction } from "@solana/web3.js";
 import BN from "bn.js";
 import sendTransaction from "../utils/send-transaction";
@@ -11,7 +11,7 @@ import * as anchor from "@coral-xyz/anchor";
 async function addTokensHandler(
     connection: Connection,
     wallet: WalletContextState,
-    ixClient: Rpc,
+    ixClient: Governance,
     realmAccount: PublicKey,
     tokenMint: PublicKey,
     tokenAccount: PublicKey,

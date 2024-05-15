@@ -1,7 +1,7 @@
 import { useConnection } from "@solana/wallet-adapter-react";
 import configs from "../../public/config.json";
 import { useQuery } from "@tanstack/react-query";
-import { Rpc } from "test-governance-sdk";
+import { Governance } from "test-governance-sdk";
 import { PublicKey } from "@solana/web3.js";
 
 export interface RealmMetaType {
@@ -10,7 +10,20 @@ export interface RealmMetaType {
     programId: string,
     network: string,
     tokenMint: string,
-    tokenType: string
+    tokenType: string,
+    banner: string,
+    mainColor: string,
+    secondaryColor: string,
+    thirdColor: string,
+    tickColor: string,
+    gradientOne: string,
+    gradientTwo: string,
+    primaryBackground: string,
+    optionsBackground: string,
+    secondaryBackground: string,
+    optionsSelected: string,
+    optionsDark: string,
+    actionBackground: string
 }
 
 export function useGetRealmMeta(name: string) {
@@ -37,7 +50,7 @@ export function useGetRealmData(name: string) {
             
             const realmKey = new PublicKey(selectedRealm.realmId)
             const programId = new PublicKey(selectedRealm.programId)
-            const govRpc = new Rpc(connection, programId)
+            const govRpc = new Governance(connection, programId)
 
            try {
                 const realmData = await govRpc.getRealmByPubkey(realmKey)
@@ -63,7 +76,7 @@ export function useGetRealmConfig(name: string) {
             }
             
             const programId = new PublicKey(selectedRealm.programId)
-            const govRpc = new Rpc(connection, programId)
+            const govRpc = new Governance(connection, programId)
             const realmId = new PublicKey(selectedRealm.realmId)
             
             try {

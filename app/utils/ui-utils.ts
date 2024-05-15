@@ -1,3 +1,4 @@
+import { ChatMessage } from "test-governance-sdk"
 
 export function removeZeros(numString: string) {
     const numArray = numString.split("").reverse()
@@ -12,4 +13,21 @@ export function removeZeros(numString: string) {
     }
 
     return numArray.reverse().join("")
+}
+
+export function ellipsify(str: string, len = 4) {
+    if (str.length > 30) {
+      return (
+        str.substring(0, len) + '..' + str.substring(str.length - len, str.length)
+      );
+    }
+    return str;
+}
+
+export function getLink(str: string, type: 'tx' | 'account', network: string) {
+    return `https://solscan.io/${type}/${str}/${network === "devnet" ? "?cluster=devnet" : ""}`
+}
+
+export function commentsCount(comments: ChatMessage[]) {
+    return comments.filter(c => c.body.text !== undefined).length
 }
