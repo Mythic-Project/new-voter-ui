@@ -1,11 +1,11 @@
 import { WalletContextState } from "@solana/wallet-adapter-react";
 import { Connection, PublicKey } from "@solana/web3.js";
-import { Rpc, TokenOwnerRecord } from "test-governance-sdk";
+import { Governance, TokenOwnerRecord } from "test-governance-sdk";
 import sendTransaction from "../utils/send-transaction";
 
 async function delegateTokensHanlder(
     connection: Connection,
-    govClient: Rpc,
+    govClient: Governance,
     tokenOwnerRecord: TokenOwnerRecord,
     newDelegate: PublicKey | null,
     wallet: WalletContextState
