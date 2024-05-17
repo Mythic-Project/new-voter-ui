@@ -112,10 +112,22 @@ export async function castVoteHandler(
 
 
     if (message) {
-
         const vwrKey = vsrClient ? 
             vsrRecordKey(realmAccount, tokenMint, chatTor.governingTokenOwner, vsrClient.programId)[0] :
             undefined
+
+        if (vwrKey && vsrClient) {
+            const [voterKey] = voterRecordKey(realmAccount, tokenMint, chatTor.governingTokenOwner, vsrClient.programId)
+
+            const updateVoterRecordIx = await vsrClient.methods.updateVoterWeightRecord()
+            .accounts({
+                registrar,
+                voter: voterKey,
+                voterWeightRecord: vwrKey
+            }).instruction()
+        
+            ixs.push(updateVoterRecordIx)
+        }
 
         const chatMessageIx = await govClient.postMessageInstruction(
             message,
