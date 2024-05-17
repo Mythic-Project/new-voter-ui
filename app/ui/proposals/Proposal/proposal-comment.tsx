@@ -9,7 +9,7 @@ import { ProposalV2, TokenOwnerRecord, VoteRecord } from "test-governance-sdk"
 import { StandardButton } from "../../buttons"
 import { Spinner } from "../../animations"
 import Link from "next/link"
-import { getLink } from "@/app/utils/ui-utils"
+import { getLink, txDropErrorMsg } from "@/app/utils/ui-utils"
 
 function ProposalComment(
     {proposal, closeModal, denyVote, votes, tokenOwnerRecord, delegateRecords, voteRecords, allVotesCasted, setInitialFetch}:
@@ -110,7 +110,7 @@ function ProposalComment(
                 castVoteFailed || errorMsg ?
                     <div className="text-red-400 text-sm mt-4">
                         {errorMsg}
-                        {castVoteFailed && castVoteError.message}
+                        {castVoteFailed && txDropErrorMsg(castVoteError.message)}
                     </div> :
                     ""
             }

@@ -11,7 +11,7 @@ import { PublicKey } from "@solana/web3.js";
 import { UseQueryResult } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
-import { getLink } from "@/app/utils/ui-utils";
+import { getLink, txDropErrorMsg } from "@/app/utils/ui-utils";
 
 export function Delegate(
     {closeModal, voterWeight}:
@@ -120,7 +120,7 @@ export function Delegate(
                 errorMsg || delegateTokensFailed ?
                 <div className="text-red-400 text-sm mt-4">
                     {errorMsg}
-                    {delegateTokensFailed && delegateTokensError.message}
+                    {delegateTokensFailed && txDropErrorMsg(delegateTokensError.message)}
                 </div> : 
                 ""
             }

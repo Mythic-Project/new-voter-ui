@@ -127,7 +127,7 @@ async function sendTransaction(
                     new Promise((resolve) =>
                         setTimeout(() => {
                             resolve(null);
-                        }, 5000)
+                        }, 3000)
                     )
                 ])
     
@@ -135,7 +135,7 @@ async function sendTransaction(
                     break
                 }
         
-                console.log(`${new Date().toISOString()} Tx not confirmed after ${5000 * txSendAttempts++}ms, resending`);
+                console.log(`${new Date().toISOString()} Tx not confirmed after ${3000 * txSendAttempts++}ms, resending`);
         
                 await connection.sendRawTransaction(signedTx.serialize(), {
                     skipPreflight: true,

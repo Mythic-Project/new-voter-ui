@@ -2,24 +2,30 @@
 
 import { ChatMessage, ProposalV2 } from "test-governance-sdk";
 import { StandardButton } from "@/app/ui/buttons";
-import { useState } from "react";
-import { Comment } from "./comment";
+import { useEffect, useState } from "react";
+import { ChatMessageWithTimeStamp, Comment } from "./comment";
 import { useDaoMeta } from "@/app/providers/dao-provider";
 import { RealmMetaType } from "@/app/hooks/useRealm";
 import { useGetDelegateRecords, useGetTokenOwnerRecord } from "@/app/hooks/useVoterRecord";
 import { usePostMessage } from "@/app/hooks/usePostComment";
+import { txDropErrorMsg } from "@/app/utils/ui-utils";
 
 export function CommentsDisplay(
     {comments, proposal}: {comments: ChatMessage[], proposal: ProposalV2}
 ) {
-    const [newMsg, setNewMsg] = useState("")
     const messages = comments.filter(comment => comment.body.text !== undefined)
-    const topLevelMessages = messages.filter(msg => msg.replyTo === null)
+    const topLevelMessages = messages.filter(msg => msg.replyTo === null) as any
+    const topLevelMsgsSorted = topLevelMessages.sort(
+        (a: ChatMessageWithTimeStamp,b: ChatMessageWithTimeStamp) => b.unixTimestamp.sub(a.unixTimestamp).toNumber()
+    )
 
     const realmMeta = useDaoMeta() as RealmMetaType
     const tokenOwnerRecord = useGetTokenOwnerRecord(realmMeta.name).data
     const delegateRecords = useGetDelegateRecords(realmMeta.name).data
     
+    const [newMsg, setNewMsg] = useState("")
+    const [loadedComments, setLoadedComments] = useState<ChatMessageWithTimeStamp[]>([])
+
     const {
         mutateAsync: postMessageAsync,
         isError: postMessageFailed,
@@ -40,23 +46,19 @@ export function CommentsDisplay(
         setNewMsg("")
     }
 
+    function loadComments() {
+        const newLoadedCommetns = topLevelMsgsSorted.slice(0, loadedComments.length+8)
+        setLoadedComments(newLoadedCommetns)
+    }
+
+    useEffect(() => {
+        loadComments()
+    }, [comments])
+
     return (
         <div className="w-full flex flex-col">
-            <hr className="border-[1px] w-full my-4" style={{borderColor: realmMeta.secondaryBackground}} />
-            {
-                topLevelMessages.map(msg => (
-                    <div key={msg.publicKey.toBase58()} className="mb-2">
-                        <Comment 
-                            subComments={comments.filter(comment => comment.replyTo?.equals(msg.publicKey))}
-                            comment={msg} 
-                            proposal={proposal}
-
-                        />
-                    </div> 
-                ))
-            }
             <hr className="border-[1px] w-full mt-2" style={{borderColor: realmMeta.secondaryBackground}} />
-            <div className="w-full flex gap-3 my-4">
+            <div className="w-full flex gap-3 mt-4">
                 <input 
                     type="text"
                     placeholder="Write your reply..."
@@ -77,8 +79,30 @@ export function CommentsDisplay(
                 />
             </div>
             {postMessageFailed && <div className="text-red-400 text-sm mt-4">
-                {postMessageError.message}
+                {txDropErrorMsg(postMessageError.message)}
             </div>}
+            <hr className="border-[1px] w-full my-4" style={{borderColor: realmMeta.secondaryBackground}} />
+            {
+                loadedComments.map(msg => (
+                    <div key={msg.publicKey.toBase58()} className="mb-2">
+                        <Comment 
+                            subComments={comments.filter(comment => comment.replyTo?.equals(msg.publicKey))}
+                            comment={msg} 
+                            proposal={proposal}
+
+                        />
+                    </div> 
+                ))
+            }
+            {topLevelMessages.length > loadedComments.length &&
+                <div 
+                    className="text-sm cursor-pointer" 
+                    style={{color: realmMeta.mainColor}}
+                    onClick={loadComments}
+                >
+                    Load more comments..
+                </div>
+            }          
         </div>
     )
 }

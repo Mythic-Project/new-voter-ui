@@ -65,8 +65,6 @@ export async function postMessageHandler(
     
     ixs.push(chatMessageIx)
 
-    console.log(ixs.map(i => i.keys.map(k => k.pubkey.toBase58())))
-
     const signature = await sendTransaction(
         connection,
         ixs,

@@ -12,7 +12,7 @@ import { useGetTokenOwnerRecord } from "@/app/hooks/useVoterRecord";
 import { VoteRecordWithGov } from "@/app/hooks/useVoteRecord";
 import { VoterWeightType } from "@/app/hooks/useVoterWeight";
 import { Spinner } from "@/app/ui/animations";
-import { getLink } from "@/app/utils/ui-utils";
+import { getLink, txDropErrorMsg } from "@/app/utils/ui-utils";
 
 export function ConfirmWithdraw(
     {
@@ -98,7 +98,7 @@ export function ConfirmWithdraw(
                 errorMsg || withdrawTokensFailed ?
                 <div className="text-red-400 text-sm">
                     {errorMsg}
-                    {withdrawTokensFailed && withdrawTokensError.message}
+                    {withdrawTokensFailed && txDropErrorMsg(withdrawTokensError.message)}
                 </div> :
                 ""
             }

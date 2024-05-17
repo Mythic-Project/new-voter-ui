@@ -5,7 +5,7 @@ import { RealmMetaType } from "@/app/hooks/useRealm";
 import { useGetDelegateRecords, useGetTokenOwnerRecord } from "@/app/hooks/useVoterRecord";
 import { useDaoMeta } from "@/app/providers/dao-provider";
 import { StandardButton } from "@/app/ui/buttons";
-import { ellipsify, getLink } from "@/app/utils/ui-utils";
+import { ellipsify, getLink, txDropErrorMsg } from "@/app/utils/ui-utils";
 import BN from "bn.js";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
@@ -17,7 +17,7 @@ import { ChatMessage, ProposalV2 } from "test-governance-sdk";
 
 dayjs.extend(relativeTime)
 
-interface ChatMessageWithTimeStamp extends ChatMessage {
+export interface ChatMessageWithTimeStamp extends ChatMessage {
     unixTimestamp: BN
 }
 
@@ -131,7 +131,7 @@ export function Comment(
                 />
             </div>}
             {postMessageFailed && <div className="text-red-400 text-sm mt-4">
-                {postMessageError.message}
+                {txDropErrorMsg(postMessageError.message)}
             </div>}
         </div>
     )

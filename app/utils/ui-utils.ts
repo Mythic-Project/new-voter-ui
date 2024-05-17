@@ -31,3 +31,17 @@ export function getLink(str: string, type: 'tx' | 'account', network: string) {
 export function commentsCount(comments: ChatMessage[]) {
     return comments.filter(c => c.body.text !== undefined).length
 }
+
+export function txDropErrorMsg(error: string) {
+    try {
+        const errorObj = JSON.parse(error)
+
+        if (errorObj.signature) {
+            return "The transaction failed to confirm, please try again."
+        } else {
+            return error
+        }
+    } catch {
+        return error
+    }
+}
