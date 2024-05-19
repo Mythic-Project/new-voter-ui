@@ -83,7 +83,7 @@ function ProposalComment(
                 placeholder={"Write your comment.."} 
                 className=" placeholder:text-placeholder-shade 
                     placeholder:text-sm h-24 resize-none
-                    w-11/12 p-4 rounded-lg z-20 border-[1px] border-[#434557]"
+                    w-11/12 p-4 rounded-lg z-5 border-[1px] border-[#434557]"
                 style={{backgroundColor: realmMeta.secondaryBackground}}
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}

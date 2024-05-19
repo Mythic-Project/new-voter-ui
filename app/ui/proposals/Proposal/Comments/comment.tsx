@@ -115,7 +115,7 @@ export function Comment(
                     type="text"
                     placeholder="Write your reply..."
                     className="
-                        placeholder:text-secondary-text placeholder:pl-4 p-4 rounded-lg text-sm z-20 
+                        placeholder:text-secondary-text placeholder:pl-4 p-4 rounded-lg text-sm z-5 
                         placeholder:font-light w-10/12"
                     style={{backgroundColor: realmMeta.secondaryBackground}}
                     onChange={(e) => setNewMsg(e.target.value)}
