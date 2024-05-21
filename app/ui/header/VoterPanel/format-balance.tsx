@@ -26,7 +26,8 @@ function FormatBalance({
 }
 
 export function formatOptionVotes(num: BN, decimals = 0) {
-
+    if (num.eq(new BN(0))) return "0"
+    
     const numStr: string = num.toString()
     const numStrLen = numStr.length
     const divisionIdx = numStrLen-decimals

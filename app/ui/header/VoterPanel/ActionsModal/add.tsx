@@ -81,9 +81,8 @@ export function Add(
             <hr className="border-[1px] w-full mb-6" style={{borderColor: realmMeta.secondaryBackground}} />
 
             <input type="number" placeholder={"0"} className="
-                placeholder:text-placeholder-shade w-full p-3 rounded-lg z-20 
-                border-[1px] border-[#434557] mb-2"
-                style={{backgroundColor: realmMeta.secondaryBackground}}
+                placeholder:text-placeholder-shade w-full p-3 rounded-lg z-20 border-[1px] mb-2"
+                style={{backgroundColor: realmMeta.secondaryBackground, borderColor: realmMeta.optionsSelected }}
                 disabled={tokensHolding.data? false : true}
                 onChange={(e) => setAmount(e.target.value)}
                 value={tokensHolding.data ? amount : ""}

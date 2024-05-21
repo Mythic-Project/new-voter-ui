@@ -73,7 +73,7 @@ function OptionDisplay(
         <li className={`w-full relative border-[1px] my-4 rounded-md text-primary-text text-sm`}
             onClick={handleOptionClick}
             style={{
-                borderColor: optionSelected ? realmMeta.mainColor : "#434557",
+                borderColor: optionSelected ? realmMeta.mainColor : realmMeta.optionsSelected,
                 backgroundColor: optionSelected ? realmMeta.optionsSelected :
                     isVotingOver ? realmMeta.optionsDark :
                     realmMeta.optionsBackground
@@ -88,8 +88,11 @@ function OptionDisplay(
             >
             </p>
             <div className="relative z-2 w-full flex gap-2 items-center p-3">
-                <span className={`py-[6px] px-[10px] mr-3 border-[1px] border-[#434557]`}
-                    style={{backgroundColor: optionSelected && isVoting ? realmMeta.mainColor : "#212330" }}
+                <span className={`py-[6px] px-[10px] mr-3 border-[1px]`}
+                    style={{
+                        backgroundColor: optionSelected && isVoting ? realmMeta.mainColor : realmMeta.primaryBackground,
+                        borderColor: realmMeta.optionsSelected
+                    }}
                 >
                     {String.fromCharCode(65+index)}
                 </span>
@@ -113,7 +116,7 @@ function OptionDisplay(
                     {isVotingOver ?
                         window.screen.width > 620 ?
                             <FormatBalance decimals={decimals} weight={option.voteWeight}/> :
-                            <span>${formatOptionVotes(option.voteWeight, decimals)}</span> :
+                            <span>{formatOptionVotes(option.voteWeight, decimals)}</span> :
                             ""
                     }
                     {isVotingOver ? tokenName ? tokenName : "Votes" : ""}

@@ -92,9 +92,9 @@ export function Delegate(
                 type="text" 
                 placeholder={"kruHL...gvZC"} 
                 className=" placeholder:text-placeholder-shade 
-                    w-full p-3 rounded-lg z-20 border-[1px] border-[#434557] mb-4"
+                    w-full p-3 rounded-lg z-20 border-[1px] mb-4"
                 value={address}
-                style={{backgroundColor: realmMeta.secondaryBackground}}
+                style={{backgroundColor: realmMeta.secondaryBackground, borderColor: realmMeta.optionsSelected }}
                 disabled={!voterWeight.data}
                 onChange={(e) => setAddress(e.target.value)}
             />
