@@ -20,15 +20,16 @@ export function SearchBar() {
     return (
         <div className="text-primary-text flex gap-4">
             <div className="relative">
-                <input type="text" placeholder={"Search"} className="
-                    placeholder:text-placeholder-shade placeholder:pl-7 p-4 rounded-lg text-sm z-20 
-                    placeholder:font-light"
+                <input type="text" className="p-4 rounded-lg text-sm z-20 text-secondary-text"
                     style={{backgroundColor: daoMeta.primaryBackground}}
                     onChange={(e) => handleChange(e.target.value)}
                 />
                 {
                     showSearchIcon &&
-                    <LuSearch className="absolute text-placeholder-shade top-[18px] left-5 z-15"/>
+                    <div className="absolute flex gap-2 top-[16px] left-5 z-15 items-center">
+                        <LuSearch className=" text-placeholder-shade"/>
+                        <span className="text-placeholder-shade font-light text-sm">Search</span>
+                    </div>
                 }
             </div>
             <div className="p-4 rounded-lg" style={{backgroundColor: daoMeta.primaryBackground}}>

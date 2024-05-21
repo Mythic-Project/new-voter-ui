@@ -25,4 +25,19 @@ function FormatBalance({
     )
 }
 
+export function formatOptionVotes(num: BN, decimals = 0) {
+
+    const numStr: string = num.toString()
+    const numStrLen = numStr.length
+    const divisionIdx = numStrLen-decimals
+    const numStrWithDecimals = numStr.substring(0, divisionIdx)+"."+numStr.substring(divisionIdx, numStrLen)
+
+    const parsedNum = parseFloat(numStrWithDecimals)
+
+    return Intl.NumberFormat('en-US', {
+        minimumFractionDigits: parsedNum > 1 ? 3 : 9,
+        notation: "compact",
+    }).format(parsedNum)
+}
+
 export default FormatBalance

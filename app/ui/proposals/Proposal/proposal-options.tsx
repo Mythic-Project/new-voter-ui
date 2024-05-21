@@ -4,7 +4,7 @@ import { useGetDaoMintData } from "@/app/hooks/useMint"
 import { RealmMetaType } from "@/app/hooks/useRealm"
 import { useDaoMeta } from "@/app/providers/dao-provider"
 import BN from "bn.js"
-import FormatBalance from "../../header/VoterPanel/format-balance"
+import FormatBalance, { formatOptionVotes } from "../../header/VoterPanel/format-balance"
 import { OptionWithVote } from "./proposal-display"
 import { FaRegSquareCheck } from "react-icons/fa6"
 import { useState } from "react"
@@ -109,8 +109,13 @@ function OptionDisplay(
                 {optionPercentage ? <span className="text-secondary-text">-</span> : ""}
                 <span className="text-secondary-text text-sm">{optionPercentage}</span>
                 {isVotingOver && <span className="text-secondary-text">-</span>}
-                <span className="text-secondary-text text-sm flex flex-col sm:flex-row gap-2 items-center">
-                    {isVotingOver && <FormatBalance weight={option.voteWeight} decimals={decimals} />}
+                <span className="text-secondary-text text-sm flex flex-row gap-2 items-center">
+                    {isVotingOver ?
+                        window.screen.width > 620 ?
+                            <FormatBalance decimals={decimals} weight={option.voteWeight}/> :
+                            <span>${formatOptionVotes(option.voteWeight, decimals)}</span> :
+                            ""
+                    }
                     {isVotingOver ? tokenName ? tokenName : "Votes" : ""}
                 </span>
             </div>

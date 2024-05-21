@@ -43,7 +43,7 @@ function CommentUI(
                             {ellipsify(msg.author.toBase58())}
                         </h3>
                     </Link>
-                    <span className="text-secondary-text text-xs">
+                    <span className="text-placeholder-shade text-xs hidden sm:block">
                         {dayjs(msg.unixTimestamp.toNumber()*1000).fromNow()}
                     </span>
                 </div>
@@ -59,9 +59,12 @@ function CommentUI(
                     "" 
             }
             </div>
-            <p className="text-primary-text text-sm ml-12">
+            <p className="text-primary-text text-sm ml-1">
                 {msg.body.text![0]}
             </p>
+            <div className="text-placeholder-shade text-xs ml-1 sm:hidden">
+                {dayjs(msg.unixTimestamp.toNumber()*1000).fromNow()}
+            </div>
         </div>
     )
 }
@@ -110,12 +113,12 @@ export function Comment(
                     ))
                 }
             </div>
-            {showSubForm && <div className="flex gap-3 w-11/12 px-2 mb-3">
+            {showSubForm && <div className="flex gap-2 w-11/12 px-2 mb-3">
                 <input 
                     type="text"
                     placeholder="Write your reply..."
                     className="
-                        placeholder:text-secondary-text placeholder:pl-4 p-4 rounded-lg text-sm z-5 
+                        placeholder:text-secondary-text p-4 rounded-lg text-sm z-5 
                         placeholder:font-light w-10/12"
                     style={{backgroundColor: realmMeta.secondaryBackground}}
                     onChange={(e) => setNewMsg(e.target.value)}
@@ -126,8 +129,8 @@ export function Comment(
                     addStyles={`w-2/12`}
                     style={{backgroundColor: !newMsg || postMessagePending ? realmMeta.secondaryBackground : realmMeta.mainColor}}
                     disabled={!newMsg || postMessagePending}
-                    vibrant={true}
                     onClick={handleSubmit}
+                    customPad="py-[6px] px-2"
                 />
             </div>}
             {postMessageFailed && <div className="text-red-400 text-sm mt-4">

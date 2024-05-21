@@ -2,7 +2,7 @@ import clsx from "clsx"
 import { ReactNode } from "react"
 
 export function StandardButton(
-    {title, vibrant, onClick, addStyles, disabled, style}:
+    {title, vibrant, onClick, addStyles, disabled, style, customPad}:
     {
         title: ReactNode,
         style?: any
@@ -10,6 +10,7 @@ export function StandardButton(
         onClick?: () => void,
         disabled?: boolean, 
         addStyles?: string,
+        customPad?: string
     }
 ) {
     return (
@@ -17,7 +18,7 @@ export function StandardButton(
             {
                 "text-primary-text": vibrant,
                 "text-secondary-text": !vibrant
-            }, `text-sm cursor-pointer px-4 py-[6px] rounded-lg ${addStyles}`
+            }, `text-sm cursor-pointer ${customPad ? customPad : "px-4 py-[6px]"} rounded-lg ${addStyles}`
         )} 
             onClick={onClick}
             disabled={disabled}

@@ -58,12 +58,12 @@ export function CommentsDisplay(
     return (
         <div className="w-full flex flex-col">
             <hr className="border-[1px] w-full mt-2" style={{borderColor: realmMeta.secondaryBackground}} />
-            <div className="w-full flex gap-3 mt-4">
+            <div className="w-full flex gap-2 mt-4">
                 <input 
                     type="text"
                     placeholder="Write your reply..."
                     className="
-                        placeholder:text-secondary-text placeholder:pl-4 p-4 rounded-lg text-sm z-5
+                        placeholder:text-secondary-text p-4 rounded-lg text-sm z-5
                         placeholder:font-light w-10/12"
                     style={{backgroundColor: realmMeta.secondaryBackground}}
                     onChange={(e) => setNewMsg(e.target.value)}
@@ -74,8 +74,8 @@ export function CommentsDisplay(
                     addStyles={`w-2/12`}
                     style={{backgroundColor: !newMsg || postMessagePending ? realmMeta.secondaryBackground : realmMeta.mainColor}}
                     disabled={!newMsg || postMessagePending}
-                    vibrant={true}
                     onClick={handleSubmit}
+                    customPad="py-[6px] px-2"
                 />
             </div>
             {postMessageFailed && <div className="text-red-400 text-sm mt-4">

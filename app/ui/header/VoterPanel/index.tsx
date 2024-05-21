@@ -25,7 +25,7 @@ function VoterPanel() {
 
     return (
         <div className="w-full flex sm:flex-row flex-col 
-            justify-between p-4 items-center rounded-lg gap-3"
+            justify-between p-4 sm:items-center rounded-lg gap-3"
             style={{backgroundColor: realmMeta.primaryBackground}}
         >
             <VoterWeight />
