@@ -32,8 +32,8 @@ export function ProposalMeta(
         "Finalizing" : state
 
     return (
-        <div className="flex justify-between">
-            <div className="flex gap-4 items-center ">
+        <div className="flex sm:flex-row flex-col justify-between gap-4">
+            <div className="flex gap-3 items-center ">
                 <div className="w-10 h-10 rounded-full" style={{backgroundColor: realmMeta.optionsBackground}}></div>
                 <div className="">
                     <div className="text-sm text-primary-text">
@@ -61,7 +61,7 @@ export function ProposalMeta(
                     </div>
                 </div>
             </div>
-            <div className="flex sm:flex-row flex-col items-center gap-3">
+            <div className="flex items-center gap-3">
                 {
                     <div className=" flex items-center gap-1 text-xs py-2 px-4 rounded-2xl" style={{backgroundColor: realmMeta.secondaryBackground}}>
                         <IoMdStopwatch className="text-[14px]"/>
