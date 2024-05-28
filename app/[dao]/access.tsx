@@ -13,7 +13,7 @@ function DaoUi() {
       <main className="flex min-h-screen flex-col items-center px-4 md:px-24 py-8"
         style={{backgroundImage: `linear-gradient(to bottom, ${realmMeta.gradientOne}, ${realmMeta.gradientTwo})`}}
       >
-        {/* <GradientBackground /> */}
+        <GradientBackground />
         <Header />
         <Proposals /> 
         <Footer />

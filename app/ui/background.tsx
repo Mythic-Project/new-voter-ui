@@ -17,9 +17,9 @@ function BlurDiv() {
 
     return (
         <div 
-            className="w-full sm:w-1/3 h-32 blur-xl rounded-full" 
+            className="w-full sm:w-1/3 h-32 blur-xl rounded-full opacity-60" 
             style={{
-                backgroundImage: `linear-gradient(to right, ${daoMeta.secondaryColor}, ${daoMeta.mainColor}`,
+                backgroundImage: `linear-gradient(to right, ${daoMeta.gradientTwo}, ${daoMeta.mainColor}`,
                 boxShadow: `
                     ${(Math.random()*50).toFixed(0)}px 
                     ${(Math.random()*50).toFixed(0)}px ${(Math.random()*75).toFixed(0)}px ${daoMeta.thirdColor}`
