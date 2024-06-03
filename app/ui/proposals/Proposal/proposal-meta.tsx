@@ -10,6 +10,9 @@ import { useDaoMeta } from "@/app/providers/dao-provider"
 import { RealmMetaType } from "@/app/hooks/useRealm"
 import { ellipsify, getLink } from "@/app/utils/ui-utils"
 import Link from "next/link"
+import { useGetCivicIdentity } from "@/app/hooks/useCivicIdentity"
+import Image from "next/image"
+import ProfileImage from "./profile-image"
 
 dayjs.extend(relativeTime)
 
@@ -18,6 +21,7 @@ export function ProposalMeta(
 ) {
     const realmMeta = useDaoMeta() as RealmMetaType
     const creatorTokenOwnerRecord = useGetTokenOwnerRecordForPubkey(realmMeta.name, proposal.tokenOwnerRecord)
+    const civicProfile = useGetCivicIdentity(creatorTokenOwnerRecord.data?.governingTokenOwner)
 
     const voteDuation = governance.config.votingBaseTime * 1000
     const cooldownDuration = governance.config.votingCoolOffTime * 1000
@@ -34,7 +38,13 @@ export function ProposalMeta(
     return (
         <div className="flex sm:flex-row flex-col justify-between gap-4">
             <div className="flex gap-3 items-center ">
-                <div className="w-10 h-10 rounded-full" style={{backgroundColor: realmMeta.optionsBackground}}></div>
+                {creatorTokenOwnerRecord.data && 
+                    <ProfileImage 
+                        image={civicProfile.data?.image?.url} 
+                        fallbackAddress={creatorTokenOwnerRecord.data.governingTokenOwner}
+                        backgroundColor={realmMeta.optionsBackground}
+                    />
+                }
                 <div className="">
                     <div className="text-sm text-primary-text">
                         Created by {
@@ -49,7 +59,8 @@ export function ProposalMeta(
                                     rel="noopener noreferrer" 
                                     passHref
                                 >
-                                    {ellipsify(creatorTokenOwnerRecord.data.governingTokenOwner.toBase58())}
+                                    {civicProfile.data?.name?.value ??
+                                    ellipsify(creatorTokenOwnerRecord.data.governingTokenOwner.toBase58())}
                                 </Link> :
                             creatorTokenOwnerRecord.isFetching ?
                                 "Loading.." :
