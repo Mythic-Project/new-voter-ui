@@ -1,5 +1,5 @@
 
-export const customStyles = (primaryBackground: string) => {
+export const customStyles = (primaryBackground: string, shade?: string) => {
   return {
     content: {
       top: '50%',
@@ -8,7 +8,7 @@ export const customStyles = (primaryBackground: string) => {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      backgroundColor: primaryBackground,
+      background: shade ?? primaryBackground,
       border: 0,
       borderRadius: '16px'
     },

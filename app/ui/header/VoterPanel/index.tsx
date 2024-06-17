@@ -9,11 +9,19 @@ import { ActionsModal } from "./ActionsModal";
 import { useGetVoterWeight } from "@/app/hooks/useVoterWeight";
 import { useDaoMeta } from "@/app/providers/dao-provider";
 import { RealmMetaType } from "@/app/hooks/useRealm";
+import { useGetTokensHolding } from "@/app/hooks/useToken";
+import { BN } from "bn.js";
 
 function VoterPanel() {
     const realmMeta = useDaoMeta() as RealmMetaType
     const voterWeight = useGetVoterWeight(realmMeta.name)
     const [modalIsOpen, setIsOpen] = useState(false);
+
+    const tokensHoldings = useGetTokensHolding(realmMeta.name)
+
+    const activeBalance = tokensHoldings.data ? 
+        tokensHoldings.data.find(holding => holding && new BN(holding.balance).gt(new BN(0))) :
+        null
 
     // 1 for Add, 2 for Withdraw, 3 for Delegate
     const [selectedAction, setSelectedAction] = useState<(number)>(1)
@@ -26,14 +34,18 @@ function VoterPanel() {
     return (
         <div className="w-full flex sm:flex-row flex-col 
             justify-between p-4 sm:items-center rounded-lg gap-3"
-            style={{backgroundColor: realmMeta.primaryBackground}}
+            style={{background: realmMeta.primaryBackgroundShade ?? realmMeta.primaryBackground}}
         >
             <VoterWeight />
             <div className="flex gap-4 items-center">
                 <ActiveButton 
                     title="Add" 
                     onClick={() => handleOpenModal(1)} 
-                    mainColor={realmMeta.mainColor}
+                    mainColor={
+                        activeBalance ?
+                            realmMeta.mainColor :
+                            realmMeta.actionBackground
+                    }
                     actionBackground={realmMeta.actionBackground}
                 />
                 <StandardButton title="Withdraw" onClick={() => handleOpenModal(2)}/>
@@ -42,7 +54,7 @@ function VoterPanel() {
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setIsOpen(false)}
-                style={customStyles(realmMeta.primaryBackground)}
+                style={customStyles(realmMeta.primaryBackground, realmMeta.primaryBackgroundShade)}
                 contentLabel="Voter Weight"
                 ariaHideApp={false}
             >

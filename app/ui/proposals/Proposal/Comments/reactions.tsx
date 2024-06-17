@@ -79,7 +79,7 @@ function ReactionsUI(
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setIsOpen(false)}
-                style={customStyles(realmMeta.primaryBackground)}
+                style={customStyles(realmMeta.primaryBackground, realmMeta.primaryBackgroundShade)}
                 contentLabel="Voter Weight"
                 ariaHideApp={false}
             >
