@@ -280,3 +280,7 @@ body {
   font-size: 14px;
   opacity: .6;
 }
+
+.wallet-adapter-modal-middle {
+  display: none;
+}
