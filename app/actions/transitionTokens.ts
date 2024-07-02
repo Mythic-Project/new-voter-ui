@@ -26,6 +26,25 @@ async function transitionTokensHandler(
     mint: tokenMint,
     owner: userAccount
   })
+
+  // Relinquish existing votes
+  if (tokenOwnerRecord.outstandingProposalCount > 0) {
+    throw new Error("The user has the outstanding proposals. Can't withdraw the tokens.")
+  }
+
+voteRecords.forEach(async(voteRecord) => {
+    const relinquishIx = await govClient.relinquishVoteInstruction(
+        realmAccount,
+        voteRecord.governance,
+        voteRecord.proposal,
+        tokenOwnerRecord.publicKey,
+        tokenMint,
+        userAccount,
+        userAccount
+    )
+
+    ixs.push(relinquishIx)
+})
   
   // Withdraw tokens from the default TOR
   const vanillaWitdrawIx = await ixClient.withdrawGoverningTokensInstruction(
