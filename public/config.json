@@ -147,5 +147,28 @@
         "optionsSelected": "#4F4F4F",
         "optionsDark": "#151515",
         "actionBackground": "rgb(255,255,255,0.2)"
+    },
+    {
+        "name": "Multiple2",
+        "network": "devnet",
+        "realmId": "CZbuX1Gf15Y7EYi3vijmyTVNAhfhgcXSkTVFEz3Y7fgx",
+        "programId": "GovER5Lthms3bLBqWub97yVrMmEogzX7xNjdXpPPCVZw",
+        "tokenMint": "3ykCfUJ7wfWaU4vVJsZe5YYWzw9UYU2qRg6aiYcTKhhx",
+        "tokenType": "community",
+        "banner": "/image/bonk.png",
+        "mainColor": "#FF5C01",
+        "secondaryColor": "#4C3321",
+        "thirdColor": "#FFD71C",
+        "tickColor": "#FFFFFF",
+        "gradientOne": "#FF6202",
+        "gradientTwo": "#FFD71C",
+        "mainBackgroundImg": "/image/bonk-logo.png",
+        "primaryBackground": "#191919",
+        "primaryBackgroundShade": "linear-gradient(to bottom, #2B3649, #000205)",
+        "optionsBackground": "rgb(255,255,255,0.2)",
+        "secondaryBackground": "rgb(255,255,255,0.2)",
+        "optionsSelected": "#4F4F4F",
+        "optionsDark": "#151515",
+        "actionBackground": "rgb(255,255,255,0.2)"
     }
 ]

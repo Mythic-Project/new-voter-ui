@@ -1,4 +1,4 @@
-import { Governance } from "test-governance-sdk";
+import { Governance, TokenOwnerRecord } from "test-governance-sdk";
 import { Connection, PublicKey, SYSVAR_INSTRUCTIONS_PUBKEY, TransactionInstruction } from "@solana/web3.js";
 import BN from "bn.js";
 import sendTransaction from "../utils/send-transaction";
@@ -7,6 +7,7 @@ import { DepositEntry, Registrar, voterRecordKey, vsrRecordKey } from "../plugin
 import { Program } from "@coral-xyz/anchor";
 import { VoterStakeRegistry } from "../plugin/VoterStakeRegistry/idl";
 import * as anchor from "@coral-xyz/anchor";
+import { VoteRecordWithGov } from "../hooks/useVoteRecord";
 
 async function transitionTokensHandler(
   connection: Connection,
@@ -17,7 +18,9 @@ async function transitionTokensHandler(
   userAccount: PublicKey,
   amount: BN,
   registrarData: Registrar,
-  vsrClient: Program<VoterStakeRegistry>
+  vsrClient: Program<VoterStakeRegistry>,
+  voteRecords: VoteRecordWithGov[],
+  tokenOwnerRecord: TokenOwnerRecord
 ) {
     
   const ixs: TransactionInstruction[] = []
@@ -32,8 +35,8 @@ async function transitionTokensHandler(
     throw new Error("The user has the outstanding proposals. Can't withdraw the tokens.")
   }
 
-voteRecords.forEach(async(voteRecord) => {
-    const relinquishIx = await govClient.relinquishVoteInstruction(
+  voteRecords.forEach(async(voteRecord) => {
+    const relinquishIx = await ixClient.relinquishVoteInstruction(
         realmAccount,
         voteRecord.governance,
         voteRecord.proposal,
@@ -44,7 +47,7 @@ voteRecords.forEach(async(voteRecord) => {
     )
 
     ixs.push(relinquishIx)
-})
+  })
   
   // Withdraw tokens from the default TOR
   const vanillaWitdrawIx = await ixClient.withdrawGoverningTokensInstruction(
