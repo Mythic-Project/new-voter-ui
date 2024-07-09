@@ -170,5 +170,26 @@
         "optionsSelected": "#4F4F4F",
         "optionsDark": "#151515",
         "actionBackground": "rgb(255,255,255,0.2)"
+    },
+    {
+        "name": "Commune_Eat_Tea",
+        "network": "mainnet",
+        "realmId": "7s8AquN8vPfutRWFFSMHzfxUAGypbQA42iEpaJxH1Ub6",
+        "programId": "GovER5Lthms3bLBqWub97yVrMmEogzX7xNjdXpPPCVZw",
+        "tokenMint": "3rLretY42YatYon1vEt2SizrT1cuhYRP7Z8FcmHjVEMN",
+        "tokenType": "community",
+        "banner": "/image/placeholder.png",
+        "mainColor": "#f58505",
+        "secondaryColor": "#4C3321",
+        "thirdColor": "#ab2d08",
+        "tickColor": "#FFFFFF",
+        "gradientOne": "#180B01",
+        "gradientTwo": "#000000",
+        "primaryBackground": "#191919",
+        "optionsBackground": "#343434",
+        "secondaryBackground": "#262626",
+        "optionsSelected": "#4F4F4F",
+        "optionsDark": "#151515",
+        "actionBackground": "#343434"
     }
 ]
