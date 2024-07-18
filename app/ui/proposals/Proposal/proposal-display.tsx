@@ -124,7 +124,7 @@ export function ProposalDisplay(
             style={{backgroundColor: realmMeta.primaryBackground}}
         >
             <ProposalMeta proposal={proposal} governance={governance}/>
-            <h1 className="text-lg font-semibold flex items-center gap-2 justify-between text-primary-text mt-4 mb-2 mr-4">
+            <h1 className="text-lg font-semibold flex items-center gap-2 justify-between text-primary-text mt-4 mb-2 mr-4 break-all">
                 {proposal.name}
                 <RealmsLink proposal={proposal.publicKey} realm={governance.realm} network={network} />
             </h1>
@@ -150,7 +150,7 @@ export function ProposalDisplay(
                     disabled={(!denyVote && votes.length === 0) && !allVotesCasted}
                     vibrant={true}
                     style={{
-                        backgroundColor: denyVote || votes.length && isVoting && !allVotesCasted ? 
+                        backgroundColor: (denyVote || votes.length) && isVoting && !allVotesCasted ? 
                             realmMeta.mainColor: 
                             realmMeta.actionBackground
                         }}
