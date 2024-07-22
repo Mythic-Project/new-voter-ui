@@ -20,6 +20,7 @@ import { Comments } from "./Comments/index"
 import { Reactions } from "./Comments/reactions"
 import { commentsCount } from "@/app/utils/ui-utils"
 import { TransactionWarning } from "./transaction-warning"
+import { useGetProposalBody } from "@/app/hooks/useProposalBody"
 
 export interface OptionWithVote extends ProposalOption {
     votes: BN
@@ -45,7 +46,9 @@ export function ProposalDisplay(
     const voteRecords = useGetVoteRecordsForProposal(realmMeta.name, proposal.publicKey).data
     const tokenOwnerRecord = useGetTokenOwnerRecord(realmMeta.name).data
     const delegateRecords = useGetDelegateRecords(realmMeta.name).data
+    const proposalBody = useGetProposalBody(proposal.publicKey.toBase58(), proposal.descriptionLink).data
 
+    console.log(proposalBody)
     const [modalIsOpen, setIsOpen] = useState(false)
     const [votes, setVotes] = useState<number[]>([])
     const [denyVote, setDenyVote] = useState(false)
@@ -118,7 +121,7 @@ export function ProposalDisplay(
             voteRecords.length === 1 :
             false :
             false
-
+    
     return (
         <div className="w-full p-6 rounded-lg flex flex-col gap-2"
             style={{backgroundColor: realmMeta.primaryBackground}}
@@ -129,7 +132,7 @@ export function ProposalDisplay(
                 <RealmsLink proposal={proposal.publicKey} realm={governance.realm} network={network} />
             </h1>
             {proposal.descriptionLink.length > 0 && <div className="text-sm text-secondary-text mb-4 break-all">
-                {proposal.descriptionLink}
+                {proposalBody ?? proposal.descriptionLink}
             </div>}
             <TransactionWarning proposal={proposal} />
             <hr className="border-1" style={{borderColor: realmMeta.secondaryBackground}} />
