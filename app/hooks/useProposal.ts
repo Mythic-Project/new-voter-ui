@@ -32,8 +32,8 @@ export function useGetProposals(name: string) {
                     const proposalsForToken = currentProposals.filter(proposal => proposal.governingTokenMint.equals(token))
                     // Filter proposals that never reached voting state
                     const proposalsWithVoting = proposalsForToken.filter(proposal => proposal.votingAt !== null)
-                    const nonCancelledProposals = proposalsWithVoting.filter(proposal => !proposal.state.cancelled)
-                    proposals.push(...nonCancelledProposals)
+                    // const nonCancelledProposals = proposalsWithVoting.filter(proposal => !proposal.state.cancelled)
+                    proposals.push(...proposalsWithVoting)
                 }
                 console.log("fetched proposals")
 
